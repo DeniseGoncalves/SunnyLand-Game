@@ -351,8 +351,8 @@ GameObject:
   - component: {fileID: 1140502038}
   - component: {fileID: 1140502037}
   - component: {fileID: 1140502039}
-  m_Layer: 0
-  m_Name: tileset-sliced_0
+  m_Layer: 6
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -625,8 +625,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.027573228, y: -0.3998096}
-  m_Size: {x: 0.86950326, y: 1.2279539}
+  m_Offset: {x: 0.027573228, y: 0.6669171}
+  m_Size: {x: 0.86950326, y: 1.305057}
   m_Direction: 0
 --- !u!114 &1233908996
 MonoBehaviour:
@@ -642,6 +642,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 4
   jumpForce: 10
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  groundLayerRadius: 0.1
 --- !u!1 &1552544162
 GameObject:
   m_ObjectHideFlags: 0

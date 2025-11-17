@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement and Jump")]
     [SerializeField] private float movementSpeed;
     [SerializeField] private float jumpForce;
+    [SerializeField]private bool isLookLeft; //false == olhando para a direita, true == olhando para a esquerda
 
     [Header("Ground Check")]
     [SerializeField] private LayerMask groundLayer;
@@ -37,8 +39,21 @@ public class PlayerController : MonoBehaviour
 
     void HandleInput() //Handle vem de manipular
     {
-        float horizontal = Input.GetAxisRaw("Horizontal"); // Esquerda: vai de 0 a 1, Direita: vai de 0 a -1
+        float horizontal = Input.GetAxisRaw("Horizontal"); // Direita: vai de 0 a 1, Esquerda: vai de 0 a -1
+                                                           //> 0 == andando para a direita, < 0 == andando para a esquerda, == 0 parado
 
+        if (horizontal > 0 && isLookLeft == true) //Estou andando para a direita e olhando para a esquerda?
+        {
+            //Sim
+            Flip();
+        }
+        //Se não
+        else if (horizontal < 0 && isLookLeft == false) //Estou andando para a esquerda e olhando para a direita?
+        {
+            //Sim
+            Flip();
+        }
+        
         //if(condição) {o que fazer caso a condição seja atendida}
         //if(apertei o botão de pulo?) {Pular();}
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true) //Verifica se a tecla de espaço foi pressionada e se o jogador está no chão
@@ -59,6 +74,14 @@ public class PlayerController : MonoBehaviour
     {
         rb.linearVelocityY = 0; //Zerar a velocidade vertical antes de pular
         rb.AddForceY(jumpForce, ForceMode2D.Impulse); //Adiciona uma força instantânea para cima
+    }
+
+    void Flip()
+    {
+        isLookLeft = !isLookLeft; //Inverte o valor de isLookLeft
+        Vector3 scale = transform.localScale; //Obtém a escala local do transform
+        scale.x *= -1; //Inverte o sinal do X
+        transform.localScale = scale;
     }
 
     private void OnDrawGizmosSelected()
