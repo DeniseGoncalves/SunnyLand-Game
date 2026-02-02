@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float movementSpeed;
     [SerializeField] private float jumpForce;
     [SerializeField]private bool isLookLeft; //false == olhando para a direita, true == olhando para a esquerda
+    private bool  isWalk;
 
     [Header("Ground Check")]
     [SerializeField] private LayerMask groundLayer;
@@ -15,12 +16,13 @@ public class PlayerController : MonoBehaviour
 
     [Header("Components")]
     private Rigidbody2D rb;
+    private Animator    animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        
+        animator = GetComponent<Animator>();
 
     }
 
@@ -29,6 +31,7 @@ public class PlayerController : MonoBehaviour
     {
 
         HandleInput();
+        UpdateAnimations();
 
     }
 
@@ -40,7 +43,9 @@ public class PlayerController : MonoBehaviour
     void HandleInput() //Handle vem de manipular
     {
         float horizontal = Input.GetAxisRaw("Horizontal"); // Direita: vai de 0 a 1, Esquerda: vai de 0 a -1
-                                                           //> 0 == andando para a direita, < 0 == andando para a esquerda, == 0 parado
+        //> 0 == andando para a direita, < 0 == andando para a esquerda, == 0 parado
+
+        isWalk = horizontal != 0; //Se horizontal for diferente de 0, isWalk é true, senão é false
 
         if (horizontal > 0 && isLookLeft == true) //Estou andando para a direita e olhando para a esquerda?
         {
@@ -63,6 +68,11 @@ public class PlayerController : MonoBehaviour
 
         rb.linearVelocityX = movementSpeed * horizontal; //Define a velocidade horizontal do Rigidbody2D com base na entrada do jogador
 
+    }
+
+    void UpdateAnimations()
+    {
+        animator.SetBool("isWalk", isWalk);
     }
     
     void GroundCheck()
