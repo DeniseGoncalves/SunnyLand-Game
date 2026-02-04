@@ -73,6 +73,8 @@ public class PlayerController : MonoBehaviour
     void UpdateAnimations()
     {
         animator.SetBool("isWalk", isWalk);
+        animator.SetBool("isGrounded", isGrounded);
+        animator.SetFloat("speedY", rb.linearVelocityY);
     }
     
     void GroundCheck()
