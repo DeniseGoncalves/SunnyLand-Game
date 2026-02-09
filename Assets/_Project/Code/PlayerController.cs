@@ -3,6 +3,10 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Components")]
+    private Rigidbody2D rb;
+    private Animator    animator;
+
     [Header("Movement and Jump")]
     [SerializeField] private float movementSpeed;
     [SerializeField] private float jumpForce;
@@ -14,9 +18,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundLayerRadius;
     private bool isGrounded;
 
-    [Header("Components")]
-    private Rigidbody2D rb;
-    private Animator    animator;
+    [Header("Stomp")]
+    [SerializeField] private LayerMask stompLayer;
+    [SerializeField] private Vector2 stompBoxSize;
+    [SerializeField] private Vector2 stompBoxOffset;
+    
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,6 +45,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         GroundCheck();
+        HandleStomp();
     }
 
     void HandleInput() //Handle vem de manipular
@@ -76,6 +84,25 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isGrounded", isGrounded);
         animator.SetFloat("speedY", rb.linearVelocityY);
     }
+
+    void HandleStomp()
+    {
+        //Não estou pisando no chão?
+        //Estou caindo?
+
+        if(isGrounded == false && rb.linearVelocityY < 0)
+        {
+            Collider2D col = Physics2D.OverlapBox((Vector2)transform.position + stompBoxOffset, stompBoxSize, 0, stompLayer);
+
+            if(col != null)
+            {
+                Debug.Log(col.transform.name);
+                //Debug.LogError("Pause");
+                Jump(); //Pula novamente para simular o efeito de stomp
+                
+            }
+        }
+    }
     
     void GroundCheck()
     {
@@ -100,5 +127,8 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, groundLayerRadius); //Desenha um círculo no editor para visualizar a área de verificação do chão
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube((Vector2)transform.position + stompBoxOffset, stompBoxSize); //Desenha um retângulo no editor para visualizar a área de verificação do stomp
     }
 }
