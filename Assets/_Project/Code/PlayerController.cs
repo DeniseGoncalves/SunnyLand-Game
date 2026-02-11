@@ -46,6 +46,12 @@ public class PlayerController : MonoBehaviour
     {
         GroundCheck();
         HandleStomp();
+        
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        print(collision.transform.name);
     }
 
     void HandleInput() //Handle vem de manipular
