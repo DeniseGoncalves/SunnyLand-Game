@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     [Header("Components")]
     private Rigidbody2D rb;
     private Animator    animator;
+    private PlayerHealthManager playerHealthManager;
 
     [Header("Movement and Jump")]
     [SerializeField] private float movementSpeed;
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-
+        playerHealthManager = GetComponent<PlayerHealthManager>();
     }
 
     // Update is called once per frame
@@ -51,7 +52,19 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print(collision.transform.name);
+        switch(collision.gameObject.tag)
+        {
+            case "Danger":
+                print("Tomei dano!");
+                int defaultDamage = 1; //Valor de dano padrão
+                playerHealthManager.TakeDamage(defaultDamage); //Chama a função de tomar dano do PlayerHealthManager, passando o valor de 1 como argumento
+                break;
+
+            case "Item":
+                print("Peguei um item!");
+                collision.gameObject.SetActive(false); //Desativa o objeto para simular que ele foi coletado
+                break;
+        }
     }
 
     void HandleInput() //Handle vem de manipular
