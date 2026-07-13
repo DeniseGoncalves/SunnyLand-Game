@@ -115,8 +115,8 @@ public class PlayerController : MonoBehaviour
 
             if(col != null)
             {
-                Debug.Log(col.transform.name);
-                //Debug.LogError("Pause");
+                
+                col.GetComponent<EnemyHealthManager>().TakeDamage(1);
                 Jump(); //Pula novamente para simular o efeito de stomp
                 
             }
