@@ -55,7 +55,6 @@ public class PlayerController : MonoBehaviour
         switch(collision.gameObject.tag)
         {
             case "Danger":
-                print("Tomei dano!");
                 int defaultDamage = 1; //Valor de dano padrão
                 playerHealthManager.TakeDamage(defaultDamage); //Chama a função de tomar dano do PlayerHealthManager, passando o valor de 1 como argumento
                 break;

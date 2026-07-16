@@ -1065,6 +1065,7 @@ GameObject:
   - component: {fileID: 1832713430}
   - component: {fileID: 1832713429}
   - component: {fileID: 1832713432}
+  - component: {fileID: 1832713433}
   m_Layer: 8
   m_Name: Frog
   m_TagString: Danger
@@ -1201,6 +1202,20 @@ CapsuleCollider2D:
   m_Offset: {x: -0.09352863, y: 0.6018192}
   m_Size: {x: 0.89579177, y: 1.1885866}
   m_Direction: 0
+--- !u!114 &1832713433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832713428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae43bb90412ba2541be3a13bba17f25b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootObject: {fileID: 1158577108}
+  maxHP: 3
 --- !u!1 &1930542505
 GameObject:
   m_ObjectHideFlags: 0
