@@ -114,8 +114,11 @@ public class PlayerController : MonoBehaviour
 
             if(col != null)
             {
-                
-                col.GetComponent<EnemyHealthManager>().TakeDamage(1);
+                if(col.TryGetComponent<EnemyHealthManager>(out EnemyHealthManager script)) //Verifica se o objeto colidido possui o componente EnemyHealthManager
+                {
+                    script.TakeDamage(1);
+                }
+                //col.GetComponent<EnemyHealthManager>().TakeDamage(1);
                 Jump(); //Pula novamente para simular o efeito de stomp
                 
             }
