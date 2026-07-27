@@ -29,6 +29,8 @@ public class PlayerHealthManager : MonoBehaviour
             return; //Se o jogador estiver invulnerável, não recebe dano. O TakeDamage é interrompido por aqui
         }
 
+        isInvulnerable = true; 
+
         print("Tomei dano");
 
         currentHP -= value; //Subtrai o valor do dano da vida atual
@@ -60,7 +62,6 @@ public class PlayerHealthManager : MonoBehaviour
 
     IEnumerator InvulnerabilityCoroutine()
     {
-        isInvulnerable = true; 
 
         for(int i = 0; i < 8; i++)
         {

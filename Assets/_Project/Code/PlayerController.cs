@@ -50,13 +50,25 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         switch(collision.gameObject.tag)
         {
             case "Danger":
                 int defaultDamage = 1; //Valor de dano padrão
                 playerHealthManager.TakeDamage(defaultDamage); //Chama a função de tomar dano do PlayerHealthManager, passando o valor de 1 como argumento
+                break;
+        }
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        switch(collision.gameObject.tag)
+        {
+            case "Danger":
+                //int defaultDamage = 1; //Valor de dano padrão
+                //playerHealthManager.TakeDamage(defaultDamage); //Chama a função de tomar dano do PlayerHealthManager, passando o valor de 1 como argumento
                 break;
 
             case "Item":

@@ -17,6 +17,11 @@ public class EnemyBehaviorMoveAtoB : MonoBehaviour
         ResetEnemy();
     }
 
+    void Update()
+    {
+        enemyTransform.position = Vector2.MoveTowards(enemyTransform.position, target.position, movementSpeed * Time.deltaTime);
+    }
+
     void Flip()
     {
         
@@ -25,7 +30,7 @@ public class EnemyBehaviorMoveAtoB : MonoBehaviour
     private void ResetEnemy()
     {
         enemyTransform.position = pointA.position;
-        target.position = pointB.position;
+        target = pointB;
         if(isLookLeft == true)
         {
             Flip();

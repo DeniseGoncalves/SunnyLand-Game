@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 175955710}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.7, y: -1.695, z: 0}
+  m_LocalPosition: {x: 6.93, y: -1.695, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -184,7 +184,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -307,7 +307,7 @@ Transform:
   m_GameObject: {fileID: 330993235}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.51, y: -1.695, z: 0}
+  m_LocalPosition: {x: -7, y: -1.695, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -581,11 +581,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b5f1889e3a2f9b4e8cf19ff2fdd717d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTransform: {fileID: 0}
-  pointA: {fileID: 0}
-  pointB: {fileID: 0}
-  movementSpeed: 0
-  isLookLeft: 0
+  enemyTransform: {fileID: 175955711}
+  pointA: {fileID: 1687638004}
+  pointB: {fileID: 330993236}
+  movementSpeed: 2
+  isLookLeft: 1
 --- !u!1 &1140502036
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,7 +827,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -1983633938342041148, guid: 08215165d263b1a448654a081fa92345, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
