@@ -20,11 +20,30 @@ public class EnemyBehaviorMoveAtoB : MonoBehaviour
     void Update()
     {
         enemyTransform.position = Vector2.MoveTowards(enemyTransform.position, target.position, movementSpeed * Time.deltaTime);
+
+        if(Vector2.Distance(enemyTransform.position, target.position) < 0.05f) // se a distância entre o inimigo e o destino for menor que 0.05f
+        {
+            //Operador ternário: se o destino for o ponto A, então o destino será o ponto B, caso contrário, será o ponto A
+            //condição ? valor_se_verdadeiro : valor_se_falso
+            target = target == pointA ? pointB : pointA;
+        }
+
+        if(target.position.x > enemyTransform.position.x && isLookLeft == true) // meu destino está a direita e estou olhando para a esquerda?
+        {
+            Flip();
+        }
+        else if(target.position.x < enemyTransform.position.x && isLookLeft == false)
+        {
+            Flip();
+        }
     }
 
     void Flip()
     {
-        
+        isLookLeft = !isLookLeft;
+        Vector3 scale = enemyTransform.localScale;
+        scale.x *= -1;
+        enemyTransform.localScale = scale;
     }
 
     private void ResetEnemy()
