@@ -3,11 +3,11 @@ using UnityEngine;
 public class MovingPlataform : MonoBehaviour
 {
     [SerializeField] private Transform plataform;
-    [SerializeField] private Transform[] waypoints;
+    [SerializeField] private Transform[] waypoints; //Array
     [SerializeField] private float movementSpeed;
 
-    private int currentIndex;
-    private bool isReversing;
+    private int currentIndex; //Posição atual da plataforma
+    private bool isReversing; //Indo = Somando , Voltando = Subtraindo
 
     private Transform target;
 
@@ -26,7 +26,8 @@ public class MovingPlataform : MonoBehaviour
             return;
         }
 
-        target = waypoints[currentIndex];
+        target = waypoints[currentIndex]; //O target vai receber a posição atual da plataforma
+        plataform.position = Vector3.MoveTowards(plataform.position, target.position, movementSpeed * Time.deltaTime);
 
         if(Vector3.Distance(plataform.position, target.position) < 0.01f)
         {
@@ -37,6 +38,15 @@ public class MovingPlataform : MonoBehaviour
                 {
                     currentIndex = waypoints.Length - 2;
                     isReversing = true;
+                }
+            }
+            else if(isReversing == true)
+            {
+                currentIndex--;
+                if(currentIndex <0)
+                {
+                    currentIndex = 1;
+                    isReversing = false;
                 }
             }
         }
