@@ -78,6 +78,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        switch(collision.gameObject.tag)
+        {
+            case "movingPlataform":
+                transform.parent = collision.transform; //Faz o jogador se tornar filho da plataforma, para que ele se mova junto com ela
+                break;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        switch(collision.gameObject.tag)
+        {
+            case "movingPlataform":
+                transform.parent = null; //Remove a relação de paternidade, para que o jogador não se mova mais com a plataforma
+                break;
+        } 
+    }
+
     void HandleInput() //Handle vem de manipular
     {
         float horizontal = Input.GetAxisRaw("Horizontal"); // Direita: vai de 0 a 1, Esquerda: vai de 0 a -1

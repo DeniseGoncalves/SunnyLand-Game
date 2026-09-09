@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Danger
   - Item
+  - movingPlataform
   layers:
   - Default
   - TransparentFX
