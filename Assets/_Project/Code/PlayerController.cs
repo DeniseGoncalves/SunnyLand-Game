@@ -160,6 +160,10 @@ public class PlayerController : MonoBehaviour
     void GroundCheck()
     {
         isGrounded = Physics2D.OverlapCircle(transform.position, groundLayerRadius, groundLayer); //Verifica se há colisores na camada de chão dentro do círculo definido
+        if(rb.linearVelocityY > 0) //Se a velocidade vertical for maior que 0, significa que o jogador está subindo
+        {
+            isGrounded = false; //Então o jogador não está no chão
+        }
     }
 
     void Jump()
