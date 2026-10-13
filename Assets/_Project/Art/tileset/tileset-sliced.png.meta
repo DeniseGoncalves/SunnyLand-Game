@@ -1985,7 +1985,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tileset-sliced_75
+      name: plataform left
       rect:
         serializedVersion: 2
         x: 240
@@ -2007,7 +2007,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tileset-sliced_76
+      name: plataform middle
       rect:
         serializedVersion: 2
         x: 272
@@ -2029,7 +2029,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tileset-sliced_77
+      name: plataform right
       rect:
         serializedVersion: 2
         x: 304
@@ -3170,6 +3170,9 @@ TextureImporter:
       Corner Sup Left B: 1045128459966263314
       Corner Sup Right: 9165148420479917735
       Corner Sup Right B: 4116619017300698554
+      plataform left: 634383537
+      plataform middle: -740800383
+      plataform right: -1859348630
       tileset-sliced_0: 8020792422996973119
       tileset-sliced_1: 7622575126782243504
       tileset-sliced_10: -2625335489137864698
@@ -3265,9 +3268,6 @@ TextureImporter:
       tileset-sliced_72: 1181913405
       tileset-sliced_73: -257661211
       tileset-sliced_74: -1539696507
-      tileset-sliced_75: 634383537
-      tileset-sliced_76: -740800383
-      tileset-sliced_77: -1859348630
       tileset-sliced_78: 33910771
       tileset-sliced_79: -1883701364
       tileset-sliced_8: -1085757764421800911
