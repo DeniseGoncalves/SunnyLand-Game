@@ -164,6 +164,7 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false; //Então o jogador não está no chão
         }*/
+
     }
 
     void Jump()
