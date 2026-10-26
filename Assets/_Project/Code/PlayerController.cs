@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]private bool isLookLeft; //false == olhando para a direita, true == olhando para a esquerda
     private bool  isWalk;
 
+    [Header("Coyote Time")]
+    [SerializeField] private float coyoteTime; //Tempo que o jogador fica no ar após pular
+    private float coyoteTimeCounter; //Contador de tempo que o jogador fica no ar após pular
+
     [Header("Ground Check")]
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundLayerRadius;
@@ -40,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
         HandleInput();
         UpdateAnimations();
+        HandleCoyoteTime();
 
     }
 
@@ -119,9 +124,12 @@ public class PlayerController : MonoBehaviour
         
         //if(condição) {o que fazer caso a condição seja atendida}
         //if(apertei o botão de pulo?) {Pular();}
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true) //Verifica se a tecla de espaço foi pressionada e se o jogador está no chão
+        if (Input.GetKeyDown(KeyCode.Space)) //Verifica se a tecla de espaço foi pressionada e se o jogador está no chão
         {
-            Jump();
+            if(isGrounded == true || coyoteTimeCounter > 0) //Se o jogador estiver no chão ou se o contador de coyote time for maior que 0
+            {
+                Jump();
+            }
         }
 
         rb.linearVelocityX = movementSpeed * horizontal; //Define a velocidade horizontal do Rigidbody2D com base na entrada do jogador
@@ -171,6 +179,18 @@ public class PlayerController : MonoBehaviour
     {
         rb.linearVelocityY = 0; //Zerar a velocidade vertical antes de pular
         rb.AddForceY(jumpForce, ForceMode2D.Impulse); //Adiciona uma força instantânea para cima
+    }
+
+    void HandleCoyoteTime()
+    {
+        if(isGrounded == true)
+        {
+            coyoteTimeCounter = coyoteTime; 
+        }
+        else
+        {
+            coyoteTimeCounter -= Time.deltaTime; //Diminui o contador de tempo a cada frame - tipo uma contagem regressiva
+        }
     }
 
     void Flip()
