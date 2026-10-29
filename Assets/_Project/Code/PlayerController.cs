@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float coyoteTime; //Tempo que o jogador fica no ar após pular
     private float coyoteTimeCounter; //Contador de tempo que o jogador fica no ar após pular
 
+    [Header("Buffer Jump")]
+    [SerializeField] private float jumpBufferTimer; //Tempo que o jogador pode apertar o botão de pulo antes de tocar o chão
+    private float jumpBufferCounter;
+
     [Header("Ground Check")]
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundLayerRadius;
@@ -45,6 +49,7 @@ public class PlayerController : MonoBehaviour
         HandleInput();
         UpdateAnimations();
         HandleCoyoteTime();
+        HandleJumpBuffer();
 
     }
 
@@ -126,6 +131,8 @@ public class PlayerController : MonoBehaviour
         //if(apertei o botão de pulo?) {Pular();}
         if (Input.GetKeyDown(KeyCode.Space)) //Verifica se a tecla de espaço foi pressionada e se o jogador está no chão
         {
+            jumpBufferCounter = jumpBufferTimer; //Reseta o contador de tempo do buffer de pulo
+
             if(isGrounded == true || coyoteTimeCounter > 0) //Se o jogador estiver no chão ou se o contador de coyote time for maior que 0
             {
                 Jump();
@@ -190,6 +197,17 @@ public class PlayerController : MonoBehaviour
         else
         {
             coyoteTimeCounter -= Time.deltaTime; //Diminui o contador de tempo a cada frame - tipo uma contagem regressiva
+        }
+    }
+
+    void HandleJumpBuffer()
+    {
+        jumpBufferCounter -= Time.deltaTime; //Diminui o contador de tempo a cada frame - tipo uma contagem regressiva
+
+        if(jumpBufferCounter > 0 && isGrounded == true) //Se o contador de tempo for maior que 0 e o jogador estiver no chão
+        {
+            Jump();
+            jumpBufferCounter = 0; //Zera o contador de tempo para evitar múltiplos pulos
         }
     }
 
