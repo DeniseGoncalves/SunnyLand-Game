@@ -27,6 +27,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundLayerRadius;
     private bool isGrounded;
 
+    [Header("Wall Slide / Wall Jump")]
+    [SerializeField] private float wallCheckDistance;
+    [SerializeField] private float wallSlideSpeed;
+    [SerializeField] private LayerMask wallLayer;
+
+    [SerializeField] private bool isTouchingWall;
+
     [Header("Stomp")]
     [SerializeField] private LayerMask stompLayer;
     [SerializeField] private Vector2 stompBoxSize;
@@ -50,6 +57,7 @@ public class PlayerController : MonoBehaviour
         UpdateAnimations();
         HandleCoyoteTime();
         HandleJumpBuffer();
+        HandleWallSlide();
 
     }
 
@@ -57,7 +65,7 @@ public class PlayerController : MonoBehaviour
     {
         GroundCheck();
         HandleStomp();
-        
+        WallCheck();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -148,6 +156,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isWalk", isWalk);
         animator.SetBool("isGrounded", isGrounded);
         animator.SetFloat("speedY", rb.linearVelocityY);
+        animator.SetFloat("isWall", isTouchingWall == true ? 1 : 0); //Se isTouchingWall for true, então isWall será 1, senão será 0
     }
 
     void HandleStomp()
@@ -182,6 +191,21 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    void WallCheck()
+    {
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, wallCheckDistance, wallLayer); //Verifica se há colisores na camada de parede à esquerda do jogador
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, wallCheckDistance, wallLayer); //Verifica se há colisores na camada de parede à direita do jogador
+
+        if(hitLeft.collider != null || hitRight.collider != null) //Se houver colisores à esquerda ou à direita do jogador
+        {
+            isTouchingWall = true; //Então o jogador está tocando uma parede
+        }
+        else
+        {
+            isTouchingWall = false; //Caso contrário, o jogador não está tocando uma parede
+        }
+    }
+
     void Jump()
     {
         rb.linearVelocityY = 0; //Zerar a velocidade vertical antes de pular
@@ -208,6 +232,18 @@ public class PlayerController : MonoBehaviour
         {
             Jump();
             jumpBufferCounter = 0; //Zera o contador de tempo para evitar múltiplos pulos
+        }
+    }
+
+    void HandleWallSlide()
+    {
+        //Estou tocando na parede?
+        //Estou no chão?
+        //Estou caindo?
+
+        if(isTouchingWall == true && isGrounded == false && rb.linearVelocityY < 0)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocityX, Mathf.Max(rb.linearVelocityY, -wallSlideSpeed)); //Define a velocidade vertical do Rigidbody2D para o valor máximo entre a velocidade atual e a velocidade de deslize na parede
         }
     }
 
