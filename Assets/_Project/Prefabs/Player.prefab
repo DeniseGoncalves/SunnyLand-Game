@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -3033620032486155416, guid: 4f6b43d2148532b4b9b4d404d713718c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -177,6 +177,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   groundLayerRadius: 0.1
+  wallCheckDistance: 0.5
+  wallSlideSpeed: 1.5
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  wallJumpLockTime: 0.2
+  wallJumpForce: {x: 5, y: 10}
   stompLayer:
     serializedVersion: 2
     m_Bits: 256

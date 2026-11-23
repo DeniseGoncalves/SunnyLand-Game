@@ -27,12 +27,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundLayerRadius;
     private bool isGrounded;
 
-    [Header("Wall Slide / Wall Jump")]
+    [Header("Wall Slide")]
     [SerializeField] private float wallCheckDistance;
     [SerializeField] private float wallSlideSpeed;
     [SerializeField] private LayerMask wallLayer;
+    
+    private bool isTouchingWall;
+    private int wallDirection;
 
-    [SerializeField] private bool isTouchingWall;
+    [Header("Wall Jump")]
+    [SerializeField] private float wallJumpLockTime; //Tempo que o jogador fica travado após pular da parede
+    [SerializeField] private Vector2 wallJumpForce;
+
+    private float wallJumpLockCounter; 
 
     [Header("Stomp")]
     [SerializeField] private LayerMask stompLayer;
@@ -141,13 +148,27 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferCounter = jumpBufferTimer; //Reseta o contador de tempo do buffer de pulo
 
-            if(isGrounded == true || coyoteTimeCounter > 0) //Se o jogador estiver no chão ou se o contador de coyote time for maior que 0
+            if(isTouchingWall == true && rb.linearVelocityY <0) //Se o jogador estiver tocando a parede e estiver caindo
+            {
+                wallJumpLockCounter = wallJumpLockTime; //Reseta o contador de tempo do travamento do pulo da parede
+                rb.linearVelocity = new Vector2(-wallDirection * wallJumpForce.x, wallJumpForce.y);
+                Flip();
+            }
+
+            else if(isGrounded == true || coyoteTimeCounter > 0) //Se o jogador estiver no chão ou se o contador de coyote time for maior que 0
             {
                 Jump();
             }
         }
 
-        rb.linearVelocityX = movementSpeed * horizontal; //Define a velocidade horizontal do Rigidbody2D com base na entrada do jogador
+        if(wallJumpLockCounter > 0) //Se o tempo de travamento do pulo da parede for maior que 0
+        {
+            wallJumpLockCounter -= Time.deltaTime; //Diminui o tempo de travamento do pulo da parede a cada frame
+        }
+        else
+        {
+            rb.linearVelocityX = movementSpeed * horizontal; //Define a velocidade horizontal do Rigidbody2D com base na entrada do jogador
+        }
 
     }
 
@@ -196,14 +217,22 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, wallCheckDistance, wallLayer); //Verifica se há colisores na camada de parede à esquerda do jogador
         RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, wallCheckDistance, wallLayer); //Verifica se há colisores na camada de parede à direita do jogador
 
-        if(hitLeft.collider != null || hitRight.collider != null) //Se houver colisores à esquerda ou à direita do jogador
+        if(hitLeft.collider != null)
         {
             isTouchingWall = true; //Então o jogador está tocando uma parede
+            wallDirection = -1; //Define a direção da parede como -1 (esquerda)
+        }
+        else if(hitRight.collider != null)
+        {
+            isTouchingWall = true;
+            wallDirection = 1;
         }
         else
         {
-            isTouchingWall = false; //Caso contrário, o jogador não está tocando uma parede
+            isTouchingWall = false;
+            wallDirection = 0;
         }
+
     }
 
     void Jump()

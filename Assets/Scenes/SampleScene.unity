@@ -553,22 +553,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1789908596776633408, guid: 8a7ebc3253cfc614e94f3422c850a0ac, type: 3}
-      propertyPath: wallSlideSpeed
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1789908596776633408, guid: 8a7ebc3253cfc614e94f3422c850a0ac, type: 3}
-      propertyPath: wallLayer.m_Bits
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 1789908596776633408, guid: 8a7ebc3253cfc614e94f3422c850a0ac, type: 3}
-      propertyPath: wallCheckDistance
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8131979665761990755, guid: 8a7ebc3253cfc614e94f3422c850a0ac, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8927580428838557668, guid: 8a7ebc3253cfc614e94f3422c850a0ac, type: 3}
       propertyPath: m_Name
       value: Player
