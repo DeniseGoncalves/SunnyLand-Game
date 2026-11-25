@@ -171,6 +171,7 @@ MonoBehaviour:
   movementSpeed: 4.2
   jumpForce: 10
   isLookLeft: 0
+  extraJumps: 1
   coyoteTime: 0.2
   jumpBufferTimer: 0.2
   groundLayer:
